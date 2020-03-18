@@ -42,10 +42,17 @@
 
     function scan_label(ini) {
         if (ini.value.length > 8) {
-            console.log(ini.value)
-            $(".label").hide();
-            $(".qr").show();
-            $("#jai_qr").focus();
+            if ($("#jai_label").val().substr(0, 3) == "JAI") {
+                console.log(ini.value)
+                $(".label").hide();
+                $(".qr").show();
+                $("#jai_qr").focus();
+                $(".alert-danger").hide();
+            } else {
+                $("#jai_label").val("");
+                $("#label_tidak_valid").html("SALAH SCAN, BUKAN JAI LABEL !!");
+                $(".alert-danger").show();
+            }
         }
     }
 
@@ -54,34 +61,41 @@
             var jai_label = $("#jai_label").val();
             var jai_qr = $("#jai_qr").val();
             console.log(ini.value)
+            if (jai_qr.substr(0, 3) == "SIJ") {
+                $(".alert-danger").hide();
 
-            $.ajax({
-                url: "<?= base_url("scan/insert_scan_in") ?>",
-                type: "POST",
-                data: {
-                    tipe: "label",
-                    jai_label: jai_label,
-                    jai_qr: jai_qr,
-                },
-                cache: false,
-                success: function(dataResult) {
-                    var dataResult = JSON.parse(dataResult);
-                    if (dataResult.statusCode == "VALID") {
-                        $("#label_valid").html("ASSY " + dataResult.assyCode + ", LABEL VALID !!");
-                        $(".alert-danger").hide();
-                        $(".alert-success").show();
-                    } else if (dataResult.statusCode == "TIDAK VALID") {
-                        $("#label_tidak_valid").html("ASSY " + dataResult.assyCode + ", LABEL VALID !!");
-                        $(".alert-success").hide();
-                        $(".alert-danger").show();
+                $.ajax({
+                    url: "<?= base_url("scan/insert_scan_in") ?>",
+                    type: "POST",
+                    data: {
+                        tipe: "label",
+                        jai_label: jai_label,
+                        jai_qr: jai_qr,
+                    },
+                    cache: false,
+                    success: function(dataResult) {
+                        var dataResult = JSON.parse(dataResult);
+                        if (dataResult.statusCode == "VALID") {
+                            $("#label_valid").html("ASSY " + dataResult.assyCode + ", LABEL VALID !!");
+                            $(".alert-danger").hide();
+                            $(".alert-success").show();
+                        } else if (dataResult.statusCode == "TIDAK VALID") {
+                            $("#label_tidak_valid").html("ASSY " + dataResult.assyCode + ", LABEL VALID !!");
+                            $(".alert-success").hide();
+                            $(".alert-danger").show();
+                        }
                     }
-                }
-            });
-            $("#jai_label").val("");
-            $("#jai_qr").val("");
-            $(".label").show();
-            $("#jai_label").focus();
-            $(".qr").hide();
+                });
+                $("#jai_label").val("");
+                $("#jai_qr").val("");
+                $(".label").show();
+                $("#jai_label").focus();
+                $(".qr").hide();
+            } else {
+                $("#jai_qr").val("");
+                $("#label_tidak_valid").html("SALAH SCAN, BUKAN CASE LABEL !!");
+                $(".alert-danger").show();
+            }
         }
     }
 </script>
