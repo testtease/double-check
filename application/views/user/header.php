@@ -24,8 +24,8 @@
     <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
         <!-- Topbar Search -->
-        <a class="btn btn-primary btn-sm ml-5" href="<?= base_url('user') ?>" id="">
-            <i class="fas fa-home fa-fw"></i>
+        <a class="btn btn-primary btn-sm ml-3" href="<?= base_url('user') ?>" id="">
+            <i class="fas fa-home fa-fw"></i> Home
         </a>
 
         <!-- Topbar Navbar -->
