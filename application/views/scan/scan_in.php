@@ -24,10 +24,10 @@
                             <input type="text" id="jai_qr" class="form-control" name="jai_qr" onkeyup="scan_qr(this)" autofocus>
                         </div>
                         <div class="alert alert-success text-center" role="alert" style="display: none">
-                            <h2><strong>LABEL VALID !!!</strong></h2>
+                            <h5><strong id="label_valid">LABEL VALID !!!</strong></h5>
                         </div>
                         <div class="alert alert-danger text-center" role="alert" style="display: none">
-                            <h2><strong>LABEL TIDAK VALID !!!</strong></h2>
+                            <h5><strong id="label_tidak_valid">LABEL TIDAK VALID !!!</strong></h5>
                         </div>
                     </div>
                 </div>
@@ -67,9 +67,11 @@
                 success: function(dataResult) {
                     var dataResult = JSON.parse(dataResult);
                     if (dataResult.statusCode == "VALID") {
+                        $("#label_valid").html("ASSY " + dataResult.assyCode + ", LABEL VALID !!");
                         $(".alert-danger").hide();
                         $(".alert-success").show();
                     } else if (dataResult.statusCode == "TIDAK VALID") {
+                        $("#label_tidak_valid").html("ASSY " + dataResult.assyCode + ", LABEL VALID !!");
                         $(".alert-success").hide();
                         $(".alert-danger").show();
                     }

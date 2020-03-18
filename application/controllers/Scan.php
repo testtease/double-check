@@ -51,6 +51,10 @@ class Scan extends CI_Controller
 
     public function insert_scan_out()
     {
+        $data['user'] = $this->db->get_where('mst_user', ['email' => $this->session->userdata('email')])->row_array();
+        $username = $data['user']['username'];
+        $nik = $data['user']['nik'];
+
         if ($this->input->post('tipe') == "label") {
             $label = $this->input->post('jai_label');
             $explode_a = explode(",", $label);
@@ -97,9 +101,10 @@ class Scan extends CI_Controller
                 }
             }
 
-            $this->M_scan_out->insert_data($jai_label, $assy_code_label, $ctn_no1, $ctn_no2, $jai_qr, $assy_code_qr, $ctn_no_qr, $jai_pallet, $assy_code_pallet, $ctn_no1_pallet, $ctn_no2_pallet, $status);
+            $this->M_scan_out->insert_data($jai_label, $assy_code_label, $ctn_no1, $ctn_no2, $jai_qr, $assy_code_qr, $ctn_no_qr, $jai_pallet, $assy_code_pallet, $ctn_no1_pallet, $ctn_no2_pallet, $status, $username, $nik);
             echo json_encode(array(
-                "statusCode" => $status
+                "statusCode" => $status,
+                "assyCode" => $assy_code_label
             ));
         }
     }
@@ -107,6 +112,10 @@ class Scan extends CI_Controller
 
     public function insert_scan_in()
     {
+        $data['user'] = $this->db->get_where('mst_user', ['email' => $this->session->userdata('email')])->row_array();
+        $username = $data['user']['username'];
+        $nik = $data['user']['nik'];
+
         if ($this->input->post('tipe') == "label") {
             $label = $this->input->post('jai_label');
             $explode_a = explode(",", $label);
@@ -134,9 +143,10 @@ class Scan extends CI_Controller
                 }
             }
 
-            $this->M_scan_in->insert_label($jai_label, $assy_code_label, $ctn_no1, $ctn_no2, $jai_qr, $assy_code_qr, $ctn_no_qr, $status);
+            $this->M_scan_in->insert_label($jai_label, $assy_code_label, $ctn_no1, $ctn_no2, $jai_qr, $assy_code_qr, $ctn_no_qr, $status, $username, $nik);
             echo json_encode(array(
-                "statusCode" => $status
+                "statusCode" => $status,
+                "assyCode" => $assy_code_label
             ));
         }
     }

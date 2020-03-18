@@ -34,11 +34,13 @@ class Main extends CI_Controller
             if ($user['password'] == $password) {
                 $data = [
                     'email' => $user['email'],
+                    'nama' => $user['nama'],
+                    'nik' => $user['nik'],
                     'level' => $user['level'],
                     'sect' => $user['sect']
                 ];
                 $this->session->set_userdata($data);
-                redirect('user');
+                redirect('user', $data);
             } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert"> Password Salah!</div>');
                 redirect('main');
@@ -61,6 +63,7 @@ class Main extends CI_Controller
                 'username' => htmlspecialchars($this->input->post('username')),
                 'email' => htmlspecialchars($this->input->post('email')),
                 'password' => $this->input->post('password'),
+                'nik' => $this->input->post('nik'),
                 // 'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
                 'section' => $this->input->post('section'),
                 'level' => $this->input->post('level'),
