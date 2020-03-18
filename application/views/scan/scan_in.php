@@ -19,7 +19,7 @@
                         </div>
                         <div class="input-group mb-3 qr" style="display: none">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default"><small>Scan JAI Qr</small></span>
+                                <span class="input-group-text" id="inputGroup-sizing-default"><small>Scan Case Label</small></span>
                             </div>
                             <input type="text" id="jai_qr" class="form-control" name="jai_qr" onkeyup="scan_qr(this)" autofocus>
                         </div>
