@@ -96,7 +96,7 @@ class Scan extends CI_Controller
                 }
             }
 
-            $this->M_scan_in->insert_out($jai_label, $assy_code_label, $ctn_no1, $ctn_no2, $jai_qr, $assy_code_qr, $ctn_no_qr, $status);
+            $this->M_scan_in->insert_data($jai_label, $assy_code_label, $ctn_no1, $ctn_no2, $jai_qr, $assy_code_qr, $ctn_no_qr, $jai_pallet, $assy_code_pallet, $ctn_no1_pallet, $ctn_no2_pallet, $status);
             echo json_encode(array(
                 "statusCode" => $status
             ));
