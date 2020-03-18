@@ -7,6 +7,7 @@ class Scan extends CI_Controller
     {
         parent::__construct();
         $this->load->model('M_scan_in');
+        $this->load->model('M_scan_out');
         $this->load->model('M_data');
     }
     public function scan_in()
@@ -26,9 +27,9 @@ class Scan extends CI_Controller
     public function log()
     {
         $data['title'] = "Log History | Double Check";
-        $this->load->view('scan/header', $data);
+        $this->load->view('user/header', $data);
         $this->load->view('scan/log');
-        $this->load->view('scan/footer');
+        $this->load->view('user/footer');
     }
     public function log_scan_in()
     {
@@ -42,7 +43,7 @@ class Scan extends CI_Controller
     public function log_scan_out()
     {
         $data['title'] = "Log History Scan Out | Double Check";
-        $data['log_scan_in'] = $this->M_data->get_data_scan_out();
+        $data['history_out'] = $this->M_data->get_data_scan_out();
         $this->load->view('scan/header', $data);
         $this->load->view('scan/scan_out_history');
         $this->load->view('scan/footer');
@@ -87,7 +88,7 @@ class Scan extends CI_Controller
                             $status = "VALID";
                         } else {
                             $status = "TIDAK VALID";
-                            $ctn_no1_pallet++;
+                            $ctn_pallet++;
                         }
                     }
                 } else {
@@ -96,7 +97,7 @@ class Scan extends CI_Controller
                 }
             }
 
-            $this->M_scan_in->insert_data($jai_label, $assy_code_label, $ctn_no1, $ctn_no2, $jai_qr, $assy_code_qr, $ctn_no_qr, $jai_pallet, $assy_code_pallet, $ctn_no1_pallet, $ctn_no2_pallet, $status);
+            $this->M_scan_out->insert_data($jai_label, $assy_code_label, $ctn_no1, $ctn_no2, $jai_qr, $assy_code_qr, $ctn_no_qr, $jai_pallet, $assy_code_pallet, $ctn_no1_pallet, $ctn_no2_pallet, $status);
             echo json_encode(array(
                 "statusCode" => $status
             ));

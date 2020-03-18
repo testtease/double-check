@@ -9,7 +9,7 @@ class M_data extends CI_Model
 
     function get_data_scan_out()
     {
-        $query = "SELECT * FROM scan_out order by id desc";
-        $this->db->query($query);
+        $query = $this->db->query("SELECT * FROM scan_out order by id desc");
+        return $query->result();
     }
 }
