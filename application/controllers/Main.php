@@ -51,6 +51,12 @@ class Main extends CI_Controller
         }
     }
 
+    public function logout()
+    {
+        $this->session->sess_destroy();
+        redirect('main');
+    }
+
     public function daftar()
     {
         $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
