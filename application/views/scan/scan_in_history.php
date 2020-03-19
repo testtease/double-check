@@ -12,7 +12,7 @@
                     <!-- Card Body -->
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="history" class="table table-hover table-striped table-bordered" width="100%" style="font-size: 12px;">
+                            <table id="history" class="table table-hover table-bordered" width="100%" style="font-size: 12px;">
                                 <thead class="text-center">
                                     <tr>
                                         <th rowspan="2" class="align-middle">NO</th>
@@ -35,7 +35,7 @@
                                 <tbody>
                                     <?php $no = 1;
                                     foreach ($history_in as $key) { ?>
-                                        <tr>
+                                        <tr class="<?= ($key->status == "TIDAK VALID") ? "table-danger" : ""; ?>">
                                             <td><?= $no ?></td>
                                             <td><?= $key->nik ?></td>
                                             <td><?= $key->nama ?></td>

@@ -51,7 +51,7 @@
             } else {
                 $("#jai_label").val("");
                 $("#label_tidak_valid").html("SALAH SCAN, BUKAN JAI LABEL !!");
-                $(".alert-danger").show();
+                $(".alert-danger").show(0).delay(3000).hide(500);
             }
         }
     }
@@ -78,11 +78,11 @@
                         if (dataResult.statusCode == "VALID") {
                             $("#label_valid").html("ASSY " + dataResult.assyCode + ", LABEL VALID !!");
                             $(".alert-danger").hide();
-                            $(".alert-success").show();
+                            $(".alert-success").show(0).delay(3000).hide(500);
                         } else if (dataResult.statusCode == "TIDAK VALID") {
                             $("#label_tidak_valid").html("ASSY " + dataResult.assyCode + ", LABEL VALID !!");
                             $(".alert-success").hide();
-                            $(".alert-danger").show();
+                            $(".alert-danger").show(0).delay(3000).hide(500);
                         }
                     }
                 });
@@ -94,7 +94,7 @@
             } else {
                 $("#jai_qr").val("");
                 $("#label_tidak_valid").html("SALAH SCAN, BUKAN CASE LABEL !!");
-                $(".alert-danger").show();
+                $(".alert-danger").show(0).delay(3000).hide(500);
             }
         }
     }

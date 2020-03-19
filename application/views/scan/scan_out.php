@@ -30,10 +30,10 @@
                             <input type="text" id="jai_pallet" class="form-control" name="jai_pallet" onkeyup="scan_pallet(this)">
                         </div>
                         <div class="alert alert-success text-center" role="alert" style="display: none">
-                            <h2><strong>LABEL VALID !!!</strong></h2>
+                            <h2><strong id="label_valid">LABEL VALID !!!</strong></h2>
                         </div>
                         <div class="alert alert-danger text-center" role="alert" style="display: none">
-                            <h2><strong>LABEL TIDAK VALID !!!</strong></h2>
+                            <h2><strong id="label_tidak_valid">LABEL TIDAK VALID !!!</strong></h2>
                         </div>
                     </div>
                 </div>
@@ -47,60 +47,105 @@
     $(document).ready(function() {})
 
     function scan_label(ini) {
-        if (ini.value.length > 8) {
-            console.log(ini.value)
-            $(".label").hide();
-            $(".pallet").hide();
-            $(".qr").show();
-            $("#jai_qr").focus();
+        if (ini.value.length > 3) {
+            if (ini.value.substr(0, 3) == "JAI") {
+                var jai_label = $("#jai_label").val();
+                $.ajax({
+                    url: "<?= base_url("scan/check_scan_in") ?>",
+                    type: "POST",
+                    data: {
+                        jai_label: jai_label,
+                    },
+                    cache: false,
+                    success: function(dataResult) {
+                        var dataResult = JSON.parse(dataResult);
+                        if (dataResult.statusCode == "ADA") {
+                            $(".label").hide();
+                            $(".pallet").hide();
+                            $(".qr").show();
+                            $("#jai_qr").focus();
+                        } else if (dataResult.statusCode == "TIDAK ADA") {
+                            $("#jai_label").val("");
+                            $("#label_tidak_valid").html("LABEL " + dataResult.jai_label + " TIDAK CHECK SCAN IN !!");
+                            $(".alert-danger").show(0).delay(3000).hide(500);
+                        }
+                    }
+                });
+            } else {
+                $("#jai_label").val("");
+                $("#label_tidak_valid").html("SALAH SCAN, BUKAN JAI LABEL !!");
+                $(".alert-danger").show(0).delay(3000).hide(500);
+            }
         }
     }
 
     function scan_qr(ini) {
-        if (ini.value.length > 8) {
-            console.log(ini.value)
-            $(".label").hide();
-            $(".qr").hide();
-            $(".pallet").show();
-            $("#jai_pallet").focus();
+        if (ini.value.length > 3) {
+            if (ini.value.substr(0, 3) == "SIJ") {
+                $(".label").hide();
+                $(".qr").hide();
+                $(".pallet").show();
+                $("#jai_pallet").focus();
+            } else {
+                $("#jai_qr").val("");
+                $("#jai_qr").focus();
+                $("#label_tidak_valid").html("SALAH SCAN, BUKAN CASE LABEL !!");
+                $(".alert-danger").show(0).delay(3000).hide(500);
+            }
+        } else {
+            $("#jai_qr").val("");
         }
     }
 
     function scan_pallet(ini) {
-        if (ini.value.length > 8) {
-            var jai_label = $("#jai_label").val();
-            var jai_qr = $("#jai_qr").val();
-            var jai_pallet = $("#jai_pallet").val();
-            console.log(ini.value)
+        if (ini.value.length > 3) {
+            if (ini.value.substr(0, 3) == "SIJ") {
+                var jai_label = $("#jai_label").val();
+                var jai_qr = $("#jai_qr").val();
+                var jai_pallet = $("#jai_pallet").val();
+                console.log(ini.value)
 
-            $.ajax({
-                url: "<?= base_url("scan/insert_scan_out") ?>",
-                type: "POST",
-                data: {
-                    tipe: "label",
-                    jai_label: jai_label,
-                    jai_qr: jai_qr,
-                    jai_pallet: jai_pallet,
-                },
-                cache: false,
-                success: function(dataResult) {
-                    var dataResult = JSON.parse(dataResult);
-                    if (dataResult.statusCode == "VALID") {
-                        $(".alert-danger").hide();
-                        $(".alert-success").show();
-                    } else if (dataResult.statusCode == "TIDAK VALID") {
-                        $(".alert-success").hide();
-                        $(".alert-danger").show();
+                $.ajax({
+                    url: "<?= base_url("scan/insert_scan_out") ?>",
+                    type: "POST",
+                    data: {
+                        tipe: "label",
+                        jai_label: jai_label,
+                        jai_qr: jai_qr,
+                        jai_pallet: jai_pallet,
+                    },
+                    cache: false,
+                    success: function(dataResult) {
+                        var dataResult = JSON.parse(dataResult);
+                        if (dataResult.statusCode == "VALID") {
+                            $(".alert-danger").hide();
+                            $("#label_valid").html("LABEL VALID !!");
+                            $(".alert-success").show(0).delay(3000).hide(500);
+                        } else if (dataResult.statusCode == "TIDAK VALID") {
+                            $(".alert-success").hide();
+                            $("#label_tidak_valid").html("LABEL TIDAK VALID !!");
+                            $(".alert-danger").show(0).delay(3000).hide(500);
+                        }
                     }
-                }
-            });
-            $("#jai_label").val("");
-            $("#jai_qr").val("");
+                });
+                $("#jai_label").val("");
+                $("#jai_qr").val("");
+                $("#jai_pallet").val("");
+                $(".qr").hide();
+                $(".pallet").hide();
+                $(".label").show(0).delay(3000).hide(500);
+                $("#jai_label").focus();
+            } else {
+                $("#jai_pallet").val("");
+                $("#jai_pallet").focus();
+                $("#label_tidak_valid").html("SALAH SCAN, BUKAN MASTER PALLET !!");
+                $(".alert-danger").show(0).delay(3000).hide(500);
+            }
+        } else {
             $("#jai_pallet").val("");
-            $(".qr").hide();
-            $(".pallet").hide();
-            $(".label").show();
-            $("#jai_label").focus();
+            $("#jai_pallet").focus();
+            $("#label_tidak_valid").html("SALAH SCAN, BUKAN MASTER PALLET !!");
+            $(".alert-danger").show(0).delay(3000).hide(500);
         }
     }
 </script>

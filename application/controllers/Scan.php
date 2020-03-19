@@ -12,6 +12,7 @@ class Scan extends CI_Controller
     }
     public function scan_in()
     {
+        $data['user'] = $this->db->get_where('mst_user', ['email' => $this->session->userdata('email')])->row_array();
         $data['title'] = "Scan In | Double Check";
         $this->load->view('scan/header', $data);
         $this->load->view('scan/scan_in');
@@ -19,6 +20,7 @@ class Scan extends CI_Controller
     }
     public function scan_out()
     {
+        $data['user'] = $this->db->get_where('mst_user', ['email' => $this->session->userdata('email')])->row_array();
         $data['title'] = "Scan Out | Double Check";
         $this->load->view('scan/header', $data);
         $this->load->view('scan/scan_out');
@@ -26,6 +28,7 @@ class Scan extends CI_Controller
     }
     public function log()
     {
+        $data['user'] = $this->db->get_where('mst_user', ['email' => $this->session->userdata('email')])->row_array();
         $data['title'] = "Log History | Double Check";
         $this->load->view('user/header', $data);
         $this->load->view('scan/log');
@@ -33,6 +36,7 @@ class Scan extends CI_Controller
     }
     public function log_scan_in()
     {
+        $data['user'] = $this->db->get_where('mst_user', ['email' => $this->session->userdata('email')])->row_array();
         $data['title'] = "Log History Scan In | Double Check";
         $data['history_in'] = $this->M_data->get_data_scan_in();
         // var_dump($data['history_in']);
@@ -42,6 +46,7 @@ class Scan extends CI_Controller
     }
     public function log_scan_out()
     {
+        $data['user'] = $this->db->get_where('mst_user', ['email' => $this->session->userdata('email')])->row_array();
         $data['title'] = "Log History Scan Out | Double Check";
         $data['history_out'] = $this->M_data->get_data_scan_out();
         $this->load->view('scan/header', $data);
@@ -147,6 +152,26 @@ class Scan extends CI_Controller
             echo json_encode(array(
                 "statusCode" => $status,
                 "assyCode" => $assy_code_label
+            ));
+        }
+    }
+
+    function check_scan_in()
+    {
+        $label = $this->input->post('jai_label');
+        $explode_a = explode(",", $label);
+        $jai_label = $explode_a[0];
+
+        $check = $this->M_scan_out->check_jai_label($jai_label);
+        if ($check > 0) {
+            echo json_encode(array(
+                "statusCode" => "ADA",
+                "jaiLabel" => $jai_label
+            ));
+        } else {
+            echo json_encode(array(
+                "statusCode" => "TIDAK ADA",
+                "jaiLabel" => $jai_label
             ));
         }
     }
