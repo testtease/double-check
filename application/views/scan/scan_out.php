@@ -30,10 +30,10 @@
                             <input type="text" id="jai_pallet" class="form-control" name="jai_pallet" onkeyup="scan_pallet(this)">
                         </div>
                         <div class="alert alert-success text-center" role="alert" style="display: none">
-                            <h2><strong id="label_valid">LABEL VALID !!!</strong></h2>
+                            <h5><strong id="label_valid">LABEL VALID !!!</strong></h5>
                         </div>
                         <div class="alert alert-danger text-center" role="alert" style="display: none">
-                            <h2><strong id="label_tidak_valid">LABEL TIDAK VALID !!!</strong></h2>
+                            <h5><strong id="label_tidak_valid">LABEL TIDAK VALID !!!</strong></h5>
                         </div>
                     </div>
                 </div>

@@ -84,21 +84,18 @@ class Scan extends CI_Controller
             $ctn_no1_pallet = $ctn_no_pallet[0];
             $ctn_no2_pallet = $ctn_no_pallet[1];
 
-            $count_ctn_pallet = $ctn_no2_pallet - $ctn_no1_pallet + 1;
+            // $count_ctn_pallet = $ctn_no2_pallet - $ctn_no1_pallet + 1;
 
 
             $jml_ctn = $ctn_no2 - $ctn_no1 + 1;
+            $ctn_label = $ctn_no1;
             for ($i = 0; $i < $jml_ctn; $i++) {
-                $ctn_label = $ctn_no1;
                 if ($assy_code_label . $ctn_label == $assy_code_qr . $ctn_no_qr) {
-                    for ($i = 0; $i < $count_ctn_pallet; $i++) {
-                        $ctn_pallet = $ctn_no1_pallet;
-                        if ($assy_code_label . $ctn_label == $assy_code_pallet . $ctn_pallet) {
-                            $status = "VALID";
-                        } else {
-                            $status = "TIDAK VALID";
-                            $ctn_pallet++;
-                        }
+                    if ($assy_code_label . $ctn_no1 . $ctn_no2 == $assy_code_pallet . $ctn_no1_pallet . $ctn_no2_pallet) {
+                        $status = "VALID";
+                        $i = 10000;
+                    } else {
+                        $status = "TIDAK VALID";
                     }
                 } else {
                     $status = "TIDAK VALID";
@@ -138,10 +135,11 @@ class Scan extends CI_Controller
             $ctn_no_qr = substr($explode_qr[0], 9, 7);
 
             $jml_ctn = $ctn_no2 - $ctn_no1 + 1;
+            $ctn_label = $ctn_no1;
             for ($i = 0; $i < $jml_ctn; $i++) {
-                $ctn_label = $ctn_no1;
                 if ($assy_code_label . $ctn_label == $assy_code_qr . $ctn_no_qr) {
                     $status = "VALID";
+                    $i = 1000;
                 } else {
                     $status = "TIDAK VALID";
                     $ctn_label++;
