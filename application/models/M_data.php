@@ -12,4 +12,10 @@ class M_data extends CI_Model
         $query = $this->db->query("SELECT * FROM scan_out order by id desc");
         return $query->result();
     }
+
+    function get_data_user()
+    {
+        $query = $this->db->query("SELECT * FROM mst_user order by id desc");
+        return $query->result();
+    }
 }

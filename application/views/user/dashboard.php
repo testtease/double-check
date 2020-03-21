@@ -56,7 +56,9 @@
                 <!-- Card Body -->
                 <div class="card-body">
                     <div class="text-center">
-                        <img src="<?= base_url('assets/img/setup.png') ?>" alt="" class="img-fluid">
+                        <a href="<?= base_url('user/setup') ?>">
+                            <img src="<?= base_url('assets/img/setup.png') ?>" alt="" class="img-fluid">
+                        </a>
                         <h6 class="m-0 mt-2 font-weight-bold text-primary text-center">Setup</h6>
                     </div>
                 </div>

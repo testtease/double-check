@@ -11,14 +11,35 @@ class Main extends CI_Controller
 
     public function index()
     {
-        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
-        $this->form_validation->set_rules('password', 'Password', 'trim|required');
+        // $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+        // $this->form_validation->set_rules('password', 'Password', 'trim|required');
 
-        if ($this->form_validation->run() == FALSE) {
-            $data['title'] = 'Login Page | Double Check';
-            $this->load->view('main/index', $data);
+        $data['title'] = 'Login Page | Double Check';
+        $this->load->view('main/index', $data);
+        // if (!isset($_POST)) {
+        //     $this->_login_nik();
+        // } else {
+        // }
+    }
+
+    public function login_nik()
+    {
+        $nik = $this->input->post('nik');
+
+        $user = $this->db->get_where('mst_user', ['nik' => $nik])->row_array();
+        if ($user) {
+            $data = [
+                'email' => $user['email'],
+                'nama' => $user['nama'],
+                'nik' => $user['nik'],
+                'level' => $user['level'],
+                'sect' => $user['sect']
+            ];
+            $this->session->set_userdata($data);
+            redirect('user', $data);
         } else {
-            $this->_login();
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert"> User Tidak Terdaftar!</div>');
+            redirect('main');
         }
     }
 

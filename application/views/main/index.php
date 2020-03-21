@@ -35,34 +35,39 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="p-5">
-                                    <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4"><strong>Double Check</strong></h1>
+                                    <div class="text-center mb-4">
+                                        <h1 class="h4 text-gray-900"><strong>Double Check</strong></h1>
+                                        <small class="font-weight-bold">PT. JATIM AUTOCOMP INDONESIA</small>
                                     </div>
 
                                     <?= $this->session->flashdata('message') ?>
-                                    <form class="user" action="<?= base_url("main") ?>" method="POST">
+                                    <form class="user" action="<?= base_url("main/login_nik") ?>" method="POST">
                                         <div class="form-group">
+                                            <input type="nik" name="nik" id="nik" class="form-control form-control-user" onkeyup="login(this)" placeholder="Scan NIK...">
+                                            <?= form_error('nik', '<small class="text-danger pl-3">', '</small>') ?>
+                                        </div>
+                                        <!-- <div class="form-group">
                                             <input type="email" name="email" class="form-control form-control-user" id="exampleInputEmail" placeholder="Enter Email Address..." value="<?= set_value('email') ?>">
                                             <?= form_error('email', '<small class="text-danger pl-3">', '</small>') ?>
-                                        </div>
-                                        <div class="form-group">
+                                        </div> -->
+                                        <!-- <div class="form-group">
                                             <input type="password" name="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
                                             <?= form_error('password', '<small class="text-danger pl-3">', '</small>') ?>
-                                        </div>
-                                        <div class="form-group">
+                                        </div> -->
+                                        <!-- <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
                                                 <input type="checkbox" class="custom-control-input" id="customCheck">
                                                 <label class="custom-control-label" for="customCheck">Remember Me</label>
                                             </div>
-                                        </div>
-                                        <button type="submit" class="btn btn-warning btn-user btn-block">
+                                        </div> -->
+                                        <!-- <button type="submit" class="btn btn-warning btn-user btn-block">
                                             Login
-                                        </button>
+                                        </button> -->
                                     </form>
                                     <hr>
-                                    <div class="text-center">
+                                    <!-- <div class="text-center">
                                         <a class="small" href="<?= base_url('main/daftar') ?>">Daftar</a>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -84,6 +89,21 @@
 
     <!-- Custom scripts for all pages-->
     <script src="<?= base_url('assets/') ?>js/sb-admin-2.min.js"></script>
+
+    <script>
+        function login(ini) {
+            var nik = ini.value;
+            if (nik.length > 8) {
+                if (nik.substr(0, 3) == "000") {
+                    ini.form.submit();
+                } else {
+                    $("#nik").val("");
+                }
+            } else {
+                $("#nik").val("");
+            }
+        }
+    </script>
 
 </body>
 
