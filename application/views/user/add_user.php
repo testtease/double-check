@@ -44,7 +44,7 @@
                                     <!-- <input type="text" name="level" class="form-control form-control-user" placeholder="Level"> -->
                                 </div>
                                 <div class="col-sm-6">
-                                    <input type="password" name="password" class="form-control form-control-user" id="password" placeholder="Password">
+                                    <input type="text" name="password" class="form-control form-control-user" id="password" placeholder="Password">
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary btn-user btn-block">

@@ -61,13 +61,11 @@ class User extends CI_Controller
             $data = [
                 'username' => htmlspecialchars($this->input->post('username')),
                 'email' => htmlspecialchars($this->input->post('email')),
-                'password' => $this->input->post('password'),
                 'nik' => $this->input->post('nik'),
-                // 'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
+                'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
                 'section' => $this->input->post('section'),
                 'level' => $this->input->post('level'),
             ];
-
             $this->session->set_flashdata('message', '$(".alert-success").show(0).delay(5000).hide(500);');
             $this->db->insert('mst_user', $data);
             redirect('user/setup');

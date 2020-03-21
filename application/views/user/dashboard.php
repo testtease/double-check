@@ -48,7 +48,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6 col-6">
+        <div class="col-lg-3 col-md-6 col-6" <?= ($user['level'] !== "SPV") ? "style='display: none'" : "" ?>>
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <!-- <div class="card-header py-3 flex-row align-items-center justify-content-between">
