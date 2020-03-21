@@ -22,16 +22,18 @@ CREATE TABLE IF NOT EXISTS `mst_user` (
   `username` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
   `nik` varchar(50) NOT NULL,
-  `password` varchar(50) NOT NULL,
+  `password` varchar(100) NOT NULL,
   `section` varchar(50) NOT NULL,
   `level` varchar(50) NOT NULL,
+  `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
--- Dumping data for table db_doublecheck.mst_user: ~1 rows (approximately)
+-- Dumping data for table db_doublecheck.mst_user: ~0 rows (approximately)
 /*!40000 ALTER TABLE `mst_user` DISABLE KEYS */;
-REPLACE INTO `mst_user` (`id`, `username`, `email`, `nik`, `password`, `section`, `level`) VALUES
-	(1, 'admin', 'admin@jai.co.id', '', 'asdasasd', 'exim', 'spv');
+REPLACE INTO `mst_user` (`id`, `username`, `email`, `nik`, `password`, `section`, `level`, `date_created`) VALUES
+	(2, 'user', 'user@jai.co.id', '0000038145', 'asdasasd', 'exim', 'SPV', '2020-03-21 12:07:02'),
+	(10, 'ARTHUR', 'arthur@jai.co.id', '0000031111', '$2y$10$amUoSFe.2Y1jWTR//VlPl.TNXHH4nAq2p/Ou1hSBJFiPb.wN/U6Ry', 'EXIM', 'SPV', '2020-03-21 14:36:30');
 /*!40000 ALTER TABLE `mst_user` ENABLE KEYS */;
 
 -- Dumping structure for table db_doublecheck.scan_in
@@ -49,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `scan_in` (
   `status` varchar(50) NOT NULL,
   `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table db_doublecheck.scan_in: ~6 rows (approximately)
 /*!40000 ALTER TABLE `scan_in` DISABLE KEYS */;
@@ -59,7 +61,8 @@ REPLACE INTO `scan_in` (`id`, `nik`, `nama`, `jai_label`, `assy_code_label`, `ct
 	(3, '', '', 'JAI0000226538', 'CR39', 29, 29, 'SIJ0CTJ9S0002962', 'CTJ9', 2962, 'TIDAK VALID', '2020-03-17 23:00:22'),
 	(4, '', '', 'JAI0000226538', 'CR39', 29, 29, 'SIJ0CTS9S0002399', 'CTS9', 2399, 'TIDAK VALID', '2020-03-17 23:00:22'),
 	(5, '', '', 'JAI0000226538', 'CR39', 29, 29, 'SIJ0CR39S0000029', 'CR39', 29, 'VALID', '2020-03-17 23:00:22'),
-	(6, '', '', 'JAI0000226538', 'CR39', 29, 29, 'SIJ0CTS9S0002399', 'CTS9', 2399, 'TIDAK VALID', '2020-03-17 23:00:22');
+	(6, '', '', 'JAI0000226538', 'CR39', 29, 29, 'SIJ0CTS9S0002399', 'CTS9', 2399, 'TIDAK VALID', '2020-03-17 23:00:22'),
+	(7, '0000038145', 'user', 'JAI0000226538', 'CR39', 29, 29, 'SIJ0CR39S0000029', 'CR39', 29, 'VALID', '2020-03-19 05:48:07');
 /*!40000 ALTER TABLE `scan_in` ENABLE KEYS */;
 
 -- Dumping structure for table db_doublecheck.scan_out
