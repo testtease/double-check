@@ -80,7 +80,7 @@
                             $(".alert-danger").hide();
                             $(".alert-success").show(0).delay(3000).hide(500);
                         } else if (dataResult.statusCode == "TIDAK VALID") {
-                            $("#label_tidak_valid").html("ASSY " + dataResult.assyCode + ", LABEL VALID !!");
+                            $("#label_tidak_valid").html("ASSY " + dataResult.assyCode + ", LABEL TIDAK VALID !!");
                             $(".alert-success").hide();
                             $(".alert-danger").show(0).delay(3000).hide(500);
                         }

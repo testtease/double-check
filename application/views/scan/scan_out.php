@@ -119,11 +119,11 @@
                         var dataResult = JSON.parse(dataResult);
                         if (dataResult.statusCode == "VALID") {
                             $(".alert-danger").hide();
-                            $("#label_valid").html("LABEL VALID !!");
+                            $("#label_valid").html("ASSY " + dataResult.assyCode + ", LABEL VALID !!");
                             $(".alert-success").show(0).delay(3000).hide(500);
                         } else if (dataResult.statusCode == "TIDAK VALID") {
                             $(".alert-success").hide();
-                            $("#label_tidak_valid").html("LABEL TIDAK VALID !!");
+                            $("#label_tidak_valid").html("ASSY " + dataResult.assyCode + ", LABEL TIDAK VALID !!");
                             $(".alert-danger").show(0).delay(3000).hide(500);
                         }
                     }
@@ -133,7 +133,7 @@
                 $("#jai_pallet").val("");
                 $(".qr").hide();
                 $(".pallet").hide();
-                $(".label").show(0).delay(3000).hide(500);
+                $(".label").show();
                 $("#jai_label").focus();
             } else {
                 $("#jai_pallet").val("");
@@ -141,11 +141,6 @@
                 $("#label_tidak_valid").html("SALAH SCAN, BUKAN MASTER PALLET !!");
                 $(".alert-danger").show(0).delay(3000).hide(500);
             }
-        } else {
-            $("#jai_pallet").val("");
-            $("#jai_pallet").focus();
-            $("#label_tidak_valid").html("SALAH SCAN, BUKAN MASTER PALLET !!");
-            $(".alert-danger").show(0).delay(3000).hide(500);
         }
     }
 </script>

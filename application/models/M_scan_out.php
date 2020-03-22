@@ -10,6 +10,6 @@ class M_scan_out extends CI_Model
 
     function check_jai_label($jai_label)
     {
-        return $this->db->count_all_results("SELECT * FROM scan_in WHERE jai_label='$jai_label' AND status='VALID'");
+        return $this->db->count_all_results("scan_in WHERE jai_label='$jai_label' AND status='VALID'");
     }
 }

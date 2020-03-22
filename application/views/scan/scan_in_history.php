@@ -21,6 +21,7 @@
                                         <th colspan="4">JAI LABEL</th>
                                         <th colspan="3">JAI QR</th>
                                         <th rowspan="2" class="align-middle">STATUS</th>
+                                        <th rowspan="2" class="align-middle">WAKTU SCAN</th>
                                     </tr>
                                     <tr>
                                         <th>LABEL</th>
@@ -47,6 +48,7 @@
                                             <td><?= $key->assy_code_qr ?></td>
                                             <td class="text-center"><?= $key->ctn_no_qr ?></td>
                                             <td class="text-center"><?= $key->status ?></td>
+                                            <td class="text-center"><?= $key->date_created ?></td>
                                         </tr>
                                     <?php $no++;
                                     } ?>

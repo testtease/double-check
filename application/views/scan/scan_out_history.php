@@ -22,6 +22,7 @@
                                         <th colspan="3">JAI QR</th>
                                         <th colspan="4">MASTER PALLET</th>
                                         <th rowspan="2" class="align-middle">STATUS</th>
+                                        <th rowspan="2" class="align-middle">WAKTU SCAN</th>
                                     </tr>
                                     <tr>
                                         <th>LABEL</th>
@@ -56,6 +57,7 @@
                                             <td class="text-center"><?= $key->ctn_no1_pallet ?></td>
                                             <td class="text-center"><?= $key->ctn_no2_pallet ?></td>
                                             <td class="text-center"><?= $key->status ?></td>
+                                            <td class="text-center"><?= $key->date_created ?></td>
                                         </tr>
                                     <?php $no++;
                                     } ?>

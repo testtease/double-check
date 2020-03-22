@@ -88,10 +88,23 @@ class Scan extends CI_Controller
 
 
             $jml_ctn = $ctn_no2 - $ctn_no1 + 1;
-            $ctn_label = $ctn_no1;
+            $ctn_label = (int) $ctn_no1;
+            $ctn_qr = (int) $ctn_no_qr;
             for ($i = 0; $i < $jml_ctn; $i++) {
-                if ($assy_code_label . $ctn_label == $assy_code_qr . $ctn_no_qr) {
-                    if ($assy_code_label . $ctn_no1 . $ctn_no2 == $assy_code_pallet . $ctn_no1_pallet . $ctn_no2_pallet) {
+                // echo $assy_code_label . $ctn_label;
+                // echo "<br>";
+                // echo $assy_code_qr . $ctn_qr;
+                // echo "<br>";
+                // echo "------------------------------";
+                // echo "<br>";
+
+                if ($assy_code_label . $ctn_label == $assy_code_qr . $ctn_qr) {
+                    // echo $assy_code_label . (int) $ctn_no1 . (int) $ctn_no2;
+                    // echo "<br>";
+                    // echo $assy_code_pallet . (int) $ctn_no1_pallet . (int) $ctn_no2_pallet;
+                    // echo "<br>";
+
+                    if ($assy_code_label . (int) $ctn_no1 . (int) $ctn_no2 == $assy_code_pallet . (int) $ctn_no1_pallet . (int) $ctn_no2_pallet) {
                         $status = "VALID";
                         $i = 10000;
                     } else {
@@ -101,6 +114,9 @@ class Scan extends CI_Controller
                     $status = "TIDAK VALID";
                     $ctn_label++;
                 }
+
+                // echo $status;
+                // echo "<br>";
             }
 
             $this->M_scan_out->insert_data($jai_label, $assy_code_label, $ctn_no1, $ctn_no2, $jai_qr, $assy_code_qr, $ctn_no_qr, $jai_pallet, $assy_code_pallet, $ctn_no1_pallet, $ctn_no2_pallet, $status, $username, $nik);
@@ -135,9 +151,13 @@ class Scan extends CI_Controller
             $ctn_no_qr = substr($explode_qr[0], 9, 7);
 
             $jml_ctn = $ctn_no2 - $ctn_no1 + 1;
-            $ctn_label = $ctn_no1;
+            $ctn_label = (int) $ctn_no1;
+            $ctn_qr = (int) $ctn_no_qr;
+
+
+
             for ($i = 0; $i < $jml_ctn; $i++) {
-                if ($assy_code_label . $ctn_label == $assy_code_qr . $ctn_no_qr) {
+                if ($assy_code_label . $ctn_label == $assy_code_qr . $ctn_qr) {
                     $status = "VALID";
                     $i = 1000;
                 } else {
