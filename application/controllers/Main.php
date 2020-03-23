@@ -45,8 +45,8 @@ class Main extends CI_Controller
 
     private function _login()
     {
-        echo $email = $this->input->post('email');
-        echo $password = $this->input->post('password');
+        $email = $this->input->post('email');
+        $password = $this->input->post('password');
 
         $user = $this->db->get_where('mst_user', ['email' => $email])->row_array();
         if ($user) {

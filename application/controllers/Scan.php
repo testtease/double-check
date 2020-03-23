@@ -6,25 +6,36 @@ class Scan extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->load->library('form_validation');
         $this->load->model('M_scan_in');
         $this->load->model('M_scan_out');
         $this->load->model('M_data');
     }
     public function scan_in()
     {
-        $data['user'] = $this->db->get_where('mst_user', ['email' => $this->session->userdata('email')])->row_array();
-        $data['title'] = "Scan In | Double Check";
-        $this->load->view('scan/header', $data);
-        $this->load->view('scan/scan_in');
-        $this->load->view('scan/footer');
+        $check_status_scan_in = $this->M_scan_in->check_status();
+        if ($check_status_scan_in > 0) {
+            redirect("scan/approve_gl_in");
+        } else {
+            $data['user'] = $this->db->get_where('mst_user', ['email' => $this->session->userdata('email')])->row_array();
+            $data['title'] = "Scan In | Double Check";
+            $this->load->view('scan/header', $data);
+            $this->load->view('scan/scan_in');
+            $this->load->view('scan/footer');
+        }
     }
     public function scan_out()
     {
-        $data['user'] = $this->db->get_where('mst_user', ['email' => $this->session->userdata('email')])->row_array();
-        $data['title'] = "Scan Out | Double Check";
-        $this->load->view('scan/header', $data);
-        $this->load->view('scan/scan_out');
-        $this->load->view('scan/footer');
+        $check_status_scan_out = $this->M_scan_out->check_status();
+        if ($check_status_scan_out > 0) {
+            redirect("scan/approve_gl_out");
+        } else {
+            $data['user'] = $this->db->get_where('mst_user', ['email' => $this->session->userdata('email')])->row_array();
+            $data['title'] = "Scan Out | Double Check";
+            $this->load->view('scan/header', $data);
+            $this->load->view('scan/scan_out');
+            $this->load->view('scan/footer');
+        }
     }
     public function log()
     {
@@ -191,6 +202,76 @@ class Scan extends CI_Controller
                 "statusCode" => "TIDAK ADA",
                 "jaiLabel" => $jai_label
             ));
+        }
+    }
+
+
+    function approve_gl_out()
+    {
+        $this->form_validation->set_rules('nik', 'NIK', 'required');
+
+        if ($this->form_validation->run() == false) {
+            $data['user'] = $this->db->get_where('mst_user', ['email' => $this->session->userdata('email')])->row_array();
+            $data['title'] = "Scan Out | Double Check";
+            $this->load->view('scan/header', $data);
+            $this->load->view('scan/approve_gl_out');
+            $this->load->view('scan/footer');
+        } else {
+            $nik = $this->input->post('nik');
+
+            $user = $this->db->get_where('mst_user', ['nik' => $nik])->row_array();
+            if ($user) {
+                if (strtoupper($user['level']) == "GL") {
+                    $update = [
+                        'status' => '0',
+                    ];
+                    $this->db->where('menu', 'scan_out');
+                    $this->db->update('status_scan', $update);
+                    redirect("scan/scan_out");
+                    // echo "BENAR";
+                } else {
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert"><strong class="text-center"> USER BUKAN GL !</strong></div>');
+                    redirect("scan/approve_gl_out");
+                }
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert"><strong class="text-center"> USER TIDAK TERDAFTAR !</strong></div>');
+                redirect("scan/approve_gl_out");
+            }
+        }
+    }
+
+
+    function approve_gl_in()
+    {
+        $this->form_validation->set_rules('nik', 'NIK', 'required');
+
+        if ($this->form_validation->run() == false) {
+            $data['user'] = $this->db->get_where('mst_user', ['email' => $this->session->userdata('email')])->row_array();
+            $data['title'] = "Scan In | Double Check";
+            $this->load->view('scan/header', $data);
+            $this->load->view('scan/approve_gl_in');
+            $this->load->view('scan/footer');
+        } else {
+            $nik = $this->input->post('nik');
+
+            $user = $this->db->get_where('mst_user', ['nik' => $nik])->row_array();
+            if ($user) {
+                if (strtoupper($user['level']) == "GL") {
+                    $update = [
+                        'status' => '0',
+                    ];
+                    $this->db->where('menu', 'scan_in');
+                    $this->db->update('status_scan', $update);
+                    redirect("scan/scan_in");
+                    // echo "BENAR";
+                } else {
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert"><strong class="text-center"> USER BUKAN GL !</strong></div>');
+                    redirect("scan/approve_gl_in");
+                }
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert"><strong class="text-center"> USER TIDAK TERDAFTAR !</strong></div>');
+                redirect("scan/approve_gl_in");
+            }
         }
     }
 }

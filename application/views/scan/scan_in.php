@@ -79,16 +79,17 @@
                             $("#label_valid").html("ASSY " + dataResult.assyCode + ", LABEL VALID !!");
                             $(".alert-danger").hide();
                             $(".alert-success").show(0).delay(3000).hide(500);
+                            $(".label").show();
                         } else if (dataResult.statusCode == "TIDAK VALID") {
                             $("#label_tidak_valid").html("ASSY " + dataResult.assyCode + ", LABEL TIDAK VALID !!");
                             $(".alert-success").hide();
                             $(".alert-danger").show(0).delay(3000).hide(500);
+                            window.location.replace("<?= base_url("scan/approve_gl_in") ?>");
                         }
                     }
                 });
                 $("#jai_label").val("");
                 $("#jai_qr").val("");
-                $(".label").show();
                 $("#jai_label").focus();
                 $(".qr").hide();
             } else {

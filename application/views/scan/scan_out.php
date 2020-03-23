@@ -121,10 +121,12 @@
                             $(".alert-danger").hide();
                             $("#label_valid").html("ASSY " + dataResult.assyCode + ", LABEL VALID !!");
                             $(".alert-success").show(0).delay(3000).hide(500);
+                            $(".label").show();
                         } else if (dataResult.statusCode == "TIDAK VALID") {
                             $(".alert-success").hide();
                             $("#label_tidak_valid").html("ASSY " + dataResult.assyCode + ", LABEL TIDAK VALID !!");
                             $(".alert-danger").show(0).delay(3000).hide(500);
+                            window.location.replace("<?= base_url("scan/approve_gl_out") ?>");
                         }
                     }
                 });
@@ -133,7 +135,6 @@
                 $("#jai_pallet").val("");
                 $(".qr").hide();
                 $(".pallet").hide();
-                $(".label").show();
                 $("#jai_label").focus();
             } else {
                 $("#jai_pallet").val("");
