@@ -56,7 +56,7 @@
                                         <input type="text" name="level" class="form-control form-control-user" id="exampleInputPassword" placeholder="Level">
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="password" name="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Password">
+                                        <input type="number" name="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Password">
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-user btn-block">
