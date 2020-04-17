@@ -17,7 +17,7 @@ class Scan extends CI_Controller
         if ($check_status_scan_in > 0) {
             redirect("scan/approve_gl_in");
         } else {
-            $data['user'] = $this->db->get_where('mst_user', ['email' => $this->session->userdata('email')])->row_array();
+            $data['user'] = $this->db->get_where('mst_user', ['nik' => $this->session->userdata('nik')])->row_array();
             $data['title'] = "Scan In | Double Check";
             $this->load->view('scan/header', $data);
             $this->load->view('scan/scan_in');
@@ -30,7 +30,7 @@ class Scan extends CI_Controller
         if ($check_status_scan_out > 0) {
             redirect("scan/approve_gl_out");
         } else {
-            $data['user'] = $this->db->get_where('mst_user', ['email' => $this->session->userdata('email')])->row_array();
+            $data['user'] = $this->db->get_where('mst_user', ['nik' => $this->session->userdata('nik')])->row_array();
             $data['title'] = "Scan Out | Double Check";
             $this->load->view('scan/header', $data);
             $this->load->view('scan/scan_out');
@@ -39,7 +39,7 @@ class Scan extends CI_Controller
     }
     public function log()
     {
-        $data['user'] = $this->db->get_where('mst_user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->db->get_where('mst_user', ['nik' => $this->session->userdata('nik')])->row_array();
         $data['title'] = "Log History | Double Check";
         $this->load->view('user/header', $data);
         $this->load->view('scan/log');
@@ -47,7 +47,7 @@ class Scan extends CI_Controller
     }
     public function log_scan_in()
     {
-        $data['user'] = $this->db->get_where('mst_user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->db->get_where('mst_user', ['nik' => $this->session->userdata('nik')])->row_array();
         $data['title'] = "Log History Scan In | Double Check";
         $data['history_in'] = $this->M_data->get_data_scan_in();
         // var_dump($data['history_in']);
@@ -57,7 +57,7 @@ class Scan extends CI_Controller
     }
     public function log_scan_out()
     {
-        $data['user'] = $this->db->get_where('mst_user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->db->get_where('mst_user', ['nik' => $this->session->userdata('nik')])->row_array();
         $data['title'] = "Log History Scan Out | Double Check";
         $data['history_out'] = $this->M_data->get_data_scan_out();
         $this->load->view('scan/header', $data);
@@ -67,7 +67,7 @@ class Scan extends CI_Controller
 
     public function insert_scan_out()
     {
-        $data['user'] = $this->db->get_where('mst_user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->db->get_where('mst_user', ['nik' => $this->session->userdata('nik')])->row_array();
         $username = $data['user']['username'];
         $nik = $data['user']['nik'];
 
@@ -141,7 +141,7 @@ class Scan extends CI_Controller
 
     public function insert_scan_in()
     {
-        $data['user'] = $this->db->get_where('mst_user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->db->get_where('mst_user', ['nik' => $this->session->userdata('nik')])->row_array();
         $username = $data['user']['username'];
         $nik = $data['user']['nik'];
 

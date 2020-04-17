@@ -12,7 +12,7 @@ class User extends CI_Controller
 
     public function index()
     {
-        $data['user'] = $this->db->get_where('mst_user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->db->get_where('mst_user', ['nik' => $this->session->userdata('nik')])->row_array();
         if ($data['user'] !== NULL) {
             $data['title'] = "Dashboard | Double Check";
             $this->load->view('user/header', $data);
@@ -25,7 +25,7 @@ class User extends CI_Controller
 
     public function setup()
     {
-        $data['user'] = $this->db->get_where('mst_user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->db->get_where('mst_user', ['nik' => $this->session->userdata('nik')])->row_array();
         if ($data['user'] !== NULL) {
             $data['title'] = "Setup User | Double Check";
             $data['mst_user'] = $this->M_data->get_data_user();
@@ -39,7 +39,7 @@ class User extends CI_Controller
 
     public function add_user()
     {
-        $data['user'] = $this->db->get_where('mst_user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->db->get_where('mst_user', ['nik' => $this->session->userdata('nik')])->row_array();
         if ($data['user'] !== NULL) {
             $data['title'] = "Setup User | Double Check";
             $this->load->view('user/header', $data);
@@ -52,11 +52,11 @@ class User extends CI_Controller
 
     public function daftar()
     {
-        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+        $this->form_validation->set_rules('nik', 'Nik', 'trim|required');
 
         if ($this->form_validation->run() == false) {
             $data['title'] = "Registration Page | Double Check";
-            $this->load->view('main/daftar', $data);
+            $this->load->view('user/add_user', $data);
         } else {
             $data = [
                 'username' => htmlspecialchars($this->input->post('username')),
